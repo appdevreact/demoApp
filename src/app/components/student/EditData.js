@@ -8,7 +8,7 @@ export class EditData extends Component {
     super(props);
     this.state = {
       showdisplayComponent: false,
-      firstid: 0,
+      newItem: {},
     };
   }
   handleChange = (event) => {
@@ -16,34 +16,60 @@ export class EditData extends Component {
     switch (event.target.name) {
       case "id": {
         this.setState({
-          id: value,
+          newItem: {
+            ...this.state.newItem,
+            id: value,
+          },
         });
+
         break;
       }
       case "employee_name": {
-        this.setState({ employee_name: value });
+        this.setState({
+          newItem: {
+            ...this.state.newItem,
+            employee_name: value,
+          },
+        });
+        break;
+      }
+      case "employee_salary": {
+        this.setState({
+          newItem: {
+            ...this.state.newItem,
+            employee_salary: value,
+          },
+        });
+        break;
+      }
+      case "employee_age": {
+        this.setState({
+          newItem: {
+            ...this.state.newItem,
+            employee_age: value,
+          },
+        });
         break;
       }
     }
     this.updateToStore();
   };
   updateToStore = () => {
-    const { id, employee_name } = this.state;
+    const { newItem } = this.state;
     const { item } = this.props;
 
-    console.log(">>>>>updatedid>>>>>>employee_name>>>", id, employee_name);
-    this.props.updateItemValues(item.id, id, employee_name);
+    this.props.updateItemValues(item.id, newItem);
   };
 
   handleSubmit = (item) => {
-    console.log(">>>>>handleSubmit>>>");
     this.props.editData(item);
     this.setState({ showdisplayComponent: true });
   };
+
   componentDidMount() {}
   render() {
     const { data, item } = this.props;
-    const { showdisplayComponent } = this.state;
+    const { showdisplayComponent, newItem } = this.state;
     return (
       <div>
         {!showdisplayComponent && (
@@ -52,17 +78,31 @@ export class EditData extends Component {
               id:
               <input
                 placeholder={item.id}
-                value={this.state.id}
+                value={newItem.id}
                 name="id"
                 onChange={this.handleChange}
               />
             </div>
             <br />
-            employeeName:
+            EmployeeName:
             <input
               placeholder={item.employee_name}
-              value={this.state.employee_name}
+              value={newItem.employee_name}
               name="employee_name"
+              onChange={this.handleChange}
+            />
+            Employee Salary::
+            <input
+              placeholder={item.employee_salary}
+              value={newItem.employee_salary}
+              name="employee_salary"
+              onChange={this.handleChange}
+            />
+            Employee Age::
+            <input
+              placeholder={item.employee_age}
+              value={newItem.employee_age}
+              name="employee_age"
               onChange={this.handleChange}
             />
             <button type="submit" onClick={() => this.handleSubmit(item)}>

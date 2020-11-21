@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Table } from "reactstrap";
 export class DisplayComponent extends Component {
   render() {
-    const { data, handleEditClick } = this.props;
+    const { data, handleEditClick, hanldeDelete } = this.props;
+
     return (
       <>
-        <h1 style={{ marginLeft: "500px" }}>Employee Management System</h1>
+        <h1 style={{ marginLeft: "800px" }}>Employee Management System</h1>
         <br />
-        <Table dark style={{ width: "100px" }}>
+        <Table style={{ marginLeft: "700px", width: "100px" }}>
           <thead>
             <tr>
               <th>ID</th>
@@ -38,7 +39,9 @@ export class DisplayComponent extends Component {
                   </td>
                   <td>
                     {" "}
-                    <button type="button">Delete</button>
+                    <button type="button" onClick={() => hanldeDelete(input)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -53,5 +56,6 @@ export class DisplayComponent extends Component {
 DisplayComponent.propTypes = {
   data: PropTypes.array,
   handleEditClick: PropTypes.func,
+  hanldeDelete: PropTypes.func,
 };
 export default DisplayComponent;

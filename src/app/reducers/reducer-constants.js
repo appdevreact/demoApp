@@ -13,3 +13,4 @@ export const getActionTypes = (actionKey) => {
 export const FETCH_EMPLOYEES = "FETCH_EMPLOYEES";
 export const UPDATE_ITEM_VALUES = "UPDATE_ITEM_VALUES";
 export const EDIT_VALUE = "EDIT_VALUE";
+export const DELETE_ITEM = "DELETE_ITEM";

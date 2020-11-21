@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { renderSteps } from "./employee-actions";
-import { Table } from "reactstrap";
+import { renderSteps, deleteData } from "./employee-actions";
+
 import EditData from "./EditData";
 import { DisplayComponent } from "./DisplayComponent";
 export class EmployeeContainer extends Component {
@@ -21,7 +21,12 @@ export class EmployeeContainer extends Component {
     });
     this.setState({ item: anlItem });
   };
-
+  hanldeDelete = (item) => {
+    this.setState({
+      showTable: false,
+    });
+    this.props.deleteData(item.id);
+  };
   render() {
     const { data } = this.props;
 
@@ -33,6 +38,7 @@ export class EmployeeContainer extends Component {
             <DisplayComponent
               data={data}
               handleEditClick={this.handleEditClick}
+              hanldeDelete={this.hanldeDelete}
             />
           </>
         )}
@@ -45,5 +51,6 @@ export const mapStateToProps = (state) => ({
 });
 export const mapDispatchToProps = {
   renderSteps,
+  deleteData,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeContainer);

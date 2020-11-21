@@ -2,6 +2,7 @@ import {
   FETCH_EMPLOYEES,
   UPDATE_ITEM_VALUES,
   EDIT_VALUE,
+  DELETE_ITEM,
 } from "./reducer-constants";
 const initialState = {
   json: {},
@@ -12,7 +13,6 @@ export default function employeeInformation(
   state = { fetching: false, error: [], data: { ...initialState } },
   action = { type: "", payload: "" }
 ) {
-  console.log(">>>>>>>>>>state>>>>>>>", action);
   switch (action.type) {
     case FETCH_EMPLOYEES:
       return Object.assign({}, state, {
@@ -21,13 +21,15 @@ export default function employeeInformation(
     case UPDATE_ITEM_VALUES:
       return Object.assign({}, state, {
         id: action.id,
-        updatedid: action.updatedid,
-        updatedEmployeeName: action.updatedemployeename,
+        newItem: action.newItem,
       });
     case EDIT_VALUE:
       return Object.assign({}, state, {
-        ...(state.json[state.id - 1].id = state.updatedid),
-        ...(state.json[state.id - 1].employee_name = state.updatedEmployeeName),
+        ...(state.json[state.id - 1] = state.newItem),
+      });
+    case DELETE_ITEM:
+      return Object.assign({}, state, {
+        ...state.json.splice(action.id - 1, 1),
       });
     default:
       return state;
